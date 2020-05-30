@@ -30,8 +30,8 @@ def create_app(test_config=None):
 
     with app.app_context():
         from app.models import Users
-        from app import auth
+        from app.auth import auth_routes
 
-        app.register_blueprint(auth.bp)
+        app.register_blueprint(auth_routes.bp)
 
     return app

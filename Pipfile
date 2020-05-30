@@ -12,6 +12,7 @@ flask-migrate = "*"
 flask-sqlalchemy = "*"
 python-dotenv = "*"
 psycopg2 = "*"
+flask-wtf = "*"
 
 [requires]
 python_version = "3.8"

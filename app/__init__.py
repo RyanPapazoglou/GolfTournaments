@@ -36,12 +36,14 @@ def create_app(test_config=None):
     bootstrap.init_app(app=app)
 
     with app.app_context():
-        from app.models import Users
+        from app.models import Users, Golfers, UsersGolfers
+        from app import index
         from app.auth import auth_routes
         from app.profile import profile_routes
         from app.golfers import golfers_routes
         from app.errors import page_not_found, internal_error
 
+        app.register_blueprint(index.bp)
         app.register_blueprint(auth_routes.bp)
         app.register_blueprint(profile_routes.bp)
         app.register_blueprint(golfers_routes.bp)

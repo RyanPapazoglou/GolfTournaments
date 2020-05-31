@@ -2,14 +2,14 @@ import uuid
 from sqlalchemy import String
 from sqlalchemy.dialects.postgresql import UUID
 from app import db
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import check_password_hash
 from flask_login import UserMixin
 
 from app import login
 
 @login.user_loader
 def load_user(id):
-    return Users.query.get(int(id))
+    return Users.query.get(id)
 
 class Users(UserMixin,db.Model):
     __tablename__ = "users"
@@ -59,3 +59,12 @@ class Golfers(db.Model):
         self.world_rank = world_rank
         self.odds = odds
         self.picture_url = picture_url
+
+    def to_json(self):
+        return {
+            "first_name":self.first_name,
+            "last_name":self.last_name,
+            "world_rank":self.world_rank,
+            "odds":self.odds,
+            "picture_url":self.picture_url
+        }

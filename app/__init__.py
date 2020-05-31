@@ -38,7 +38,10 @@ def create_app(test_config=None):
     with app.app_context():
         from app.models import Users
         from app.auth import auth_routes
+        from app.errors import page_not_found, internal_error
 
         app.register_blueprint(auth_routes.bp)
+        app.register_error_handler(404, page_not_found)
+        app.register_error_handler(500, internal_error)
 
     return app

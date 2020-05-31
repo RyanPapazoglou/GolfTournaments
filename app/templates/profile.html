@@ -4,7 +4,8 @@
     <table class="table table-hover">
         <tr>
             <td>
-                <h1>Team name: {{ user.team_name}}</h1>
+                <h1>{{ user.team_name }}</h1>
+                <h5>You have {{ count }} open spots left on your team.</h5>
             </td>
         </tr>
     </table>
@@ -21,18 +22,18 @@
             </tr>
         </table>
     {% endif %}
-    <nav aria-label="...">
-        <ul class="pager">
-            <li class="previous{% if not prev_url %} disabled{% endif %}">
-                <a href="{{ prev_url or '#' }}">
-                    <span aria-hidden="true">&larr;</span> Back
-                </a>
-            </li>
-            <li class="next{% if not next_url %} disabled{% endif %}">
-                <a href="{{ next_url or '#' }}">
-                    Next <span aria-hidden="true">&rarr;</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+{#    <nav aria-label="...">#}
+{#        <ul class="pager">#}
+{#            <li class="previous{% if not prev_url %} disabled{% endif %}">#}
+{#                <a href="{{ prev_url or '#' }}">#}
+{#                    <span aria-hidden="true">&larr;</span> Back#}
+{#                </a>#}
+{#            </li>#}
+{#            <li class="next{% if not next_url %} disabled{% endif %}">#}
+{#                <a href="{{ next_url or '#' }}">#}
+{#                    Next <span aria-hidden="true">&rarr;</span>#}
+{#                </a>#}
+{#            </li>#}
+{#        </ul>#}
+{#    </nav>#}
 {% endblock %}

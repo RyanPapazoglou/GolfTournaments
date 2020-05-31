@@ -12,7 +12,7 @@ bp = Blueprint("auth", __name__, url_prefix="/auth")
 @bp.route("/login", methods=["POST","GET"])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect(url_for('golf.index'))
     form = LoginForm()
     if form.validate_on_submit():
         user = Users.query.filter_by(email=form.email.data).first()
@@ -34,7 +34,7 @@ def logout():
 @bp.route("/register", methods=["POST","GET"])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect(url_for('golf.index'))
     form = RegistrationForm()
     if form.validate_on_submit():
         user = Users(

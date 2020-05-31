@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <script type="text/javascript">
+        function confSubmit(form) {
+            if (confirm("Please confirm your team")) {
+                form.submit();
+            }
+        }
+    </script>
+    <form class="form-inline" method="POST" action="{{ url_for('golfers.submit') }}">
+    <div class="page-header">
+        <h2>Please select your team (10 golfers max)</h2>
+        <h4>You currently have {{ count }} golfers on your team. </h4>
+        <button type="submit" class="btn btn-default">Submit</button>
+    </div>
+{#        <div class="form-group">#}
+{#            <div class="input-group">#}
+                {% for golfer in golfers %}
+                    <label class="form-check-label"><input type="checkbox" class="form-check-input" name="check" value="{{ golfer.id }}"> {{ golfer.first_name }} {{ golfer.last_name }}</label>
+                    {% include '_golfer.html' %}
+                    </br>
+                {% endfor %}
+{#            </div>#}
+{#        </div>#}
+        </br>
+    </form>
+{% endblock %}

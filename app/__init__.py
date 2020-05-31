@@ -3,9 +3,11 @@ import os
 from flask import Flask
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
 
 db = SQLAlchemy()
 m = Migrate(compare_type=True)
+login = LoginManager()
 
 def create_app(test_config=None):
     # create and configure the app
@@ -27,6 +29,8 @@ def create_app(test_config=None):
 
     db.init_app(app)
     m.init_app(app=app, db=db)
+    login.init_app(app=app)
+    login.login_view = 'auth.login'
 
     with app.app_context():
         from app.models import Users

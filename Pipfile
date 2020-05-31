@@ -13,6 +13,8 @@ flask-sqlalchemy = "*"
 python-dotenv = "*"
 psycopg2 = "*"
 flask-wtf = "*"
+email-validator = "*"
+flask-login = "*"
 
 [requires]
 python_version = "3.8"

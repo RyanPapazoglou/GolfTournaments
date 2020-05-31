@@ -1,10 +1,17 @@
 import uuid
-from sqlalchemy import String, Date, ForeignKey
+from sqlalchemy import String
 from sqlalchemy.dialects.postgresql import UUID
 from app import db
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
 
+from app import login
 
-class Users(db.Model):
+@login.user_loader
+def load_user(id):
+    return Users.query.get(int(id))
+
+class Users(UserMixin,db.Model):
     __tablename__ = "users"
     id: UUID = db.Column(
         UUID(as_uuid=True),
@@ -27,6 +34,9 @@ class Users(db.Model):
         self.password = password
         self.team_name = team_name
 
+    def check_password(self, password):
+        return check_password_hash(self.password, password)
+
 class Golfers(db.Model):
     __tablename__ = "golfers"
     id: UUID = db.Column(
@@ -41,6 +51,7 @@ class Golfers(db.Model):
     world_rank = db.Column(String())
     odds = db.Column(String())
     picture_url = db.Column(String())
+    user = db.Column(UUID, db.ForeignKey('users.id'))
 
     def __init__(self, first_name, last_name, world_rank, odds, picture_url):
         self.first_name = first_name

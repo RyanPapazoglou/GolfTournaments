@@ -15,6 +15,7 @@ psycopg2 = "*"
 flask-wtf = "*"
 email-validator = "*"
 flask-login = "*"
+flask-bootstrap = "*"
 
 [requires]
 python_version = "3.8"

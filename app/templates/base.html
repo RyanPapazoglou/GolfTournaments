@@ -17,7 +17,7 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-
+                    <li><a href="{{ url_for('golfers.select') }}">Team Select</a></li>
 {#                    <li><a href="{{ url_for('index') }}">Home</a></li>#}
 {#                    <li><a href="{{ url_for('explore') }}">Explore</a></li>#}
                 </ul>
@@ -38,9 +38,15 @@
     <div class="container">
         {% with messages = get_flashed_messages() %}
         {% if messages %}
-            {% for message in messages %}
-            <div class="alert alert-info" role="alert">{{ message }}</div>
-            {% endfor %}
+{#            {% for message in messages %}#}
+{#            <div class="alert alert-info" role="alert">{{ message }}</div>#}
+{#            {% endfor %}#}
+            <script>
+              var messages = {{ messages | safe }};
+              for (var i=0; i<messages.length; i++) {
+                alert(messages[i]);
+              }
+            </script>
         {% endif %}
         {% endwith %}
 

@@ -17,14 +17,15 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url_for('golfers.select') }}">Team Select</a></li>
                     <li><a href="{{ url_for('golf.index') }}">Home</a></li>
+                    <li><a href="{{ url_for('golf.leaderboard') }}">Leaderboard</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {% if current_user.is_anonymous %}
                         <li><a href="{{ url_for('auth.login') }}">Login</a></li>
                         <li><a href="{{ url_for('auth.register') }}">Register</a></li>
                     {% else %}
+                        <li><a href="{{ url_for('golfers.select') }}">Team Select</a></li>
                         <li><a href="{{ url_for('profile.profile', team_name=current_user.team_name) }}">My Team</a></li>
                         <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
                     {% endif %}

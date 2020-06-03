@@ -63,17 +63,19 @@ class Golfers(db.Model):
     last_name = db.Column(String())
     world_rank = db.Column(String())
     odds = db.Column(Integer)
+    odds_ratio = db.Column(String())
     current_standing = db.Column(Integer)
     picture_url = db.Column(String())
     users = db.relationship(
         "UsersGolfers", back_populates="golfer"
     )
 
-    def __init__(self, first_name, last_name, world_rank, odds, current_standing,picture_url):
+    def __init__(self, first_name, last_name, world_rank, odds, odd_ratio, current_standing,picture_url):
         self.first_name = first_name
         self.last_name = last_name
         self.world_rank = world_rank
         self.odds = odds
+        self.odds_ratio = odd_ratio
         self.current_standing = current_standing
         self.picture_url = picture_url
 
@@ -83,6 +85,7 @@ class Golfers(db.Model):
             "last_name":self.last_name,
             "world_rank":self.world_rank,
             "odds":self.odds,
+            "odds_ratio":self.odds_ratio,
             "current_standing":self.current_standing,
             "picture_url":self.picture_url
         }

@@ -3,10 +3,10 @@ from app.models import Golfers
 
 class GolferDao:
     @staticmethod
-    def store_golfer(first_name, last_name, world_rank, odds, current_standing, picture_url):
+    def store_golfer(first_name, last_name, world_rank, odds, odds_ratio, current_standing, picture_url):
         try:
             golfer = Golfers(first_name=first_name, last_name=last_name,
-                             world_rank=world_rank, odds=odds, current_standing=current_standing, picture_url=picture_url)
+                             world_rank=world_rank, odds=odds, odd_ratio=odds_ratio, current_standing=current_standing, picture_url=picture_url)
             db.session.add(golfer)
             db.session.commit()
         except Exception as e:

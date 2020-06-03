@@ -9,7 +9,7 @@ bp = Blueprint("golfers", __name__, url_prefix="/golfers")
 @bp.route("/select", methods=["GET"])
 @login_required
 def select():
-    golfers = Golfers.query.all()
+    golfers = Golfers.query.order_by(Golfers.odds, Golfers.world_rank).all()
     current_golfers = len(UsersGolfers.query.filter_by(user_id=current_user.id).all())
     return render_template("golfers.html", golfers=golfers, count=current_golfers)
 

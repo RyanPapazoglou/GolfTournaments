@@ -1,5 +1,5 @@
 import uuid
-from sqlalchemy import String, ForeignKey
+from sqlalchemy import String, ForeignKey, Integer
 from sqlalchemy.dialects.postgresql import UUID
 from app import db
 from werkzeug.security import check_password_hash
@@ -25,16 +25,18 @@ class Users(UserMixin,db.Model):
     email = db.Column(String())
     password = db.Column(String())
     team_name = db.Column(String())
+    points = db.Column(Integer)
     golfers = db.relationship(
         "UsersGolfers", back_populates="user"
     )
 
-    def __init__(self, first_name, last_name, email, password, team_name):
+    def __init__(self, first_name, last_name, email, password, team_name, points):
         self.first_name = first_name
         self.last_name = last_name
         self.email = email
         self.password = password
         self.team_name = team_name
+        self.points = points
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
@@ -44,7 +46,8 @@ class Users(UserMixin,db.Model):
             "first_name":self.first_name,
             "last_name":self.last_name,
             "email":self.email,
-            "team_name":self.team_name
+            "team_name":self.team_name,
+            "points":self.points
         }
 
 class Golfers(db.Model):
@@ -59,17 +62,19 @@ class Golfers(db.Model):
     first_name = db.Column(String())
     last_name = db.Column(String())
     world_rank = db.Column(String())
-    odds = db.Column(String())
+    odds = db.Column(Integer)
+    current_standing = db.Column(Integer)
     picture_url = db.Column(String())
     users = db.relationship(
         "UsersGolfers", back_populates="golfer"
     )
 
-    def __init__(self, first_name, last_name, world_rank, odds, picture_url):
+    def __init__(self, first_name, last_name, world_rank, odds, current_standing,picture_url):
         self.first_name = first_name
         self.last_name = last_name
         self.world_rank = world_rank
         self.odds = odds
+        self.current_standing = current_standing
         self.picture_url = picture_url
 
     def to_json(self):
@@ -78,6 +83,7 @@ class Golfers(db.Model):
             "last_name":self.last_name,
             "world_rank":self.world_rank,
             "odds":self.odds,
+            "current_standing":self.current_standing,
             "picture_url":self.picture_url
         }
 

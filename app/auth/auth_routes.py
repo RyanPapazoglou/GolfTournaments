@@ -42,7 +42,8 @@ def register():
             email=form.email.data,
             first_name=form.first_name.data,
             last_name=form.last_name.data,
-            password=generate_password_hash(form.password.data)
+            password=generate_password_hash(form.password.data),
+            points=0
         )
         db.session.add(user)
         db.session.commit()

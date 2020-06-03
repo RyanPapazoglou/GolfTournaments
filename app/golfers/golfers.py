@@ -13,7 +13,19 @@ class GolfersGenerator:
         golfers_len = len(golfers_df.index)
 
         for i in range(0, golfers_len):
+            odds = golfers_df.iloc[i, 3].split('/')
+            try:
+                res = int(odds[0])/int(odds[1])
+                odds = int(res)*100
+            except ValueError as e:
+                print(e)
             GolferDao.store_golfer(first_name=str(golfers_df.iloc[i, 0]), last_name=str(golfers_df.iloc[i, 1]),
-                             world_rank=str(golfers_df.iloc[i, 2]), odds=str(golfers_df.iloc[i, 3]),
-                             picture_url=str(golfers_df.iloc[i, 4]))
+                             world_rank=str(golfers_df.iloc[i, 2]), odds=odds, current_standing=int(golfers_df.iloc[i, 4]),
+                             picture_url=str(golfers_df.iloc[i, 5]))
+        print("Done.")
+
+    @staticmethod
+    def reset_standings():
+        print("Resetting....")
+        GolferDao.reset_standings()
         print("Done.")

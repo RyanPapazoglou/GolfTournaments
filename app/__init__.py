@@ -39,7 +39,7 @@ def create_app(test_config=None):
         from app.models import Users, Golfers, UsersGolfers
         from app import index
         from app.auth import auth_routes
-        from app.profile import profile_routes
+        from app.profile import profile_routes, profile_dao
         from app.golfers import golfers_routes, golfers_dao
         from app.errors import page_not_found, internal_error
 

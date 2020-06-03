@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
-from flask_login import current_user
+from flask_login import current_user, login_required
 
 from app import db
 from app.models import Golfers, UsersGolfers
@@ -7,12 +7,14 @@ from app.models import Golfers, UsersGolfers
 bp = Blueprint("golfers", __name__, url_prefix="/golfers")
 
 @bp.route("/select", methods=["GET"])
+@login_required
 def select():
     golfers = Golfers.query.all()
     current_golfers = len(UsersGolfers.query.filter_by(user_id=current_user.id).all())
     return render_template("golfers.html", golfers=golfers, count=current_golfers)
 
 @bp.route("/submit", methods=["POST"])
+@login_required
 def submit():
     golfer_ids = request.form.getlist('check')
     if len(golfer_ids) > 10:

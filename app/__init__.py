@@ -1,4 +1,5 @@
 import os
+import datetime
 
 from flask import Flask
 from flask_migrate import Migrate
@@ -10,6 +11,8 @@ db = SQLAlchemy()
 m = Migrate(compare_type=True)
 login = LoginManager()
 bootstrap = Bootstrap()
+
+START_TIME = datetime.datetime(2020, 8, 5, 23, 59)
 
 def create_app(test_config=None):
     # create and configure the app

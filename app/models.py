@@ -43,6 +43,7 @@ class Users(UserMixin,db.Model):
 
     def to_json(self):
         return {
+            "id":self.id,
             "first_name":self.first_name,
             "last_name":self.last_name,
             "email":self.email,
@@ -81,6 +82,7 @@ class Golfers(db.Model):
 
     def to_json(self):
         return {
+            "id": self.id,
             "first_name":self.first_name,
             "last_name":self.last_name,
             "world_rank":self.world_rank,

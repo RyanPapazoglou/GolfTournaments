@@ -20,7 +20,7 @@ class GolfersGenerator:
             except ValueError as e:
                 print(e)
             GolferDao.store_golfer(first_name=str(golfers_df.iloc[i, 0]), last_name=str(golfers_df.iloc[i, 1]),
-                             world_rank=str(golfers_df.iloc[i, 2]), odds=odds, current_standing=int(golfers_df.iloc[i, 4]),
+                             world_rank=str(golfers_df.iloc[i, 2]), odds=odds, odds_ratio=str(golfers_df.iloc[i, 3]), current_standing=int(golfers_df.iloc[i, 4]),
                              picture_url=str(golfers_df.iloc[i, 5]))
         print("Done.")
 

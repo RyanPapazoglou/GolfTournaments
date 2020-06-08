@@ -5,24 +5,47 @@
         <tr>
             <td>
                 <h1>{{ user.team_name }}</h1>
+                <h3>Owner: {{ user.first_name }} {{ user.last_name }}</h3>
                 {% if user.id == current_user.id %}
                     <h5>You have {{ count }} open spots left on your team.</h5>
                 {% endif %}
             </td>
         </tr>
     </table>
+
     {% if golfers%}
+        {% if user.id == current_user.id %}
+            <form class="form-inline" method="POST" action="{{ url_for('profile.remove_all')}}">
+                <button type="submit" class="btn btn-default" style="float:left">Remove All</button>
+            </form>
+            <form class="form-inline" method="POST" action="{{ url_for('profile.remove')}}" >
+            <button type="submit" class="btn btn-default">Remove</button>
+            </br>
+        {% endif %}
         {% for golfer in golfers %}
+            {% if user.id == current_user.id %}<label class="form-check-label"><input type="checkbox" class="form-check-input" name="check" value="{{ golfer.id }}"> {{ golfer.first_name }} {{ golfer.last_name }}</label>{% endif %}
             {% include '_golfer.html' %}
         {% endfor %}
+        {% if user.id == current_user.id %}</form>{% endif %}
     {% else %}
-        <table class="table table-hover">
-            <tr>
-                <td>
-                    <h3>This user has not yet selected their golfers.</h3>
-                </td>
-            </tr>
-        </table>
+        {% if user.id == current_user.id %}
+            <table class="table table-hover">
+                <tr>
+                    <td>
+                        <h4><a href="{{ url_for('golfers.select') }}">You have not selected any golfers, go to the team builder to choose your team.</a></h4>
+                    </td>
+                </tr>
+            </table>
+        {% else %}
+            <table class="table table-hover">
+                <tr>
+                    <td>
+                        <h3>This user has not yet selected their golfers.</h3>
+                    </td>
+                </tr>
+            </table>
+            {% endif %}
     {% endif %}
+
 
 {% endblock %}

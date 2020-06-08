@@ -3,13 +3,13 @@
     <div>
         <h1>Leaderboard</h1>
         <table class="table table-hover">
-        <tr>
-            <td>
-                <h3>Your team: {{ current_user.team_name }}</h3>
-                <h5>Your points: {{ current_user.points }}</h5>
-            </td>
-        </tr>
-    </table>
+            <tr>
+                <td>
+                    <h3>Your team: {{ current_user.team_name }}</h3>
+                    <h5>Your points: {{ current_user.points }}</h5>
+                </td>
+            </tr>
+        </table>
     </div>
     {% if players%}
         {% set count = 1 %}

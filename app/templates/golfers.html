@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 
 {% block app_content %}
+    <script>
+        function count(){
+            var count = document.querySelectorAll('input[type="checkbox"]:checked').length;
+            document.getElementById("count").innerHTML=count;
+        }
+    </script>
     <form class="form-inline" method="POST" action="{{ url_for('golfers.submit') }}">
         <div class="page-header">
             <h2>Please select your team (10 golfers max)</h2>
@@ -10,7 +16,7 @@
         </div>
         {% for golfer in golfers %}
             <label class="form-check-label">
-                <input type="checkbox" class="form-check-input" name="check" value="{{ golfer.id }}"> {{ golfer.first_name }} {{ golfer.last_name }}
+                <input type="checkbox" class="form-check-input" name="check" value="{{ golfer.id }}" onchange="count()"> {{ golfer.first_name }} {{ golfer.last_name }}
             </label>
             {% include '_golfer.html' %}
             </br>
@@ -18,7 +24,10 @@
         </br>
         <nav class="navbar navbar-inverse navbar-fixed-bottom">
           <div class="container">
-              <button type="submit" class="btn btn-default">Submit</button>
+              <button type="submit" class="btn btn-default">Submit
+                  <span id="count">0</span>
+                  <span> selected golfers (10 max) </span>
+              </button>
           </div>
         </nav>
     </form>

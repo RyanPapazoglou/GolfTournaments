@@ -1,7 +1,12 @@
 {% extends 'bootstrap/base.html' %}
 
+{% block head %}
+    {{super()}}
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='golfer.ico') }}">
+{% endblock %}
+
 {% block title %}
-    {% if title %}{{ title }} - Golf{% else %}Welcome to Golf{% endif %}
+    {% if title %}{{ title }} - Golf{% else %}Tournaments{% endif %}
 {% endblock %}
 {% block navbar %}
     <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">

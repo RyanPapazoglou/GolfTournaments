@@ -32,8 +32,8 @@ def submit():
         return redirect(url_for("golfers.select"))
     try:
         current_golfers = UsersGolfers.query.filter_by(user_id=current_user.id).all()
-        if len(current_golfers) >= 10:
-            flash("Your team is already full!")
+        if (len(current_golfers) + len(golfer_ids)) >= 10:
+            flash("This selection has put your team above 10 golfers, please check your team current team and try again.")
             return redirect(url_for('profile.profile', team_name=current_user.team_name))
         for golfer_id in golfer_ids:
             users_golfers = UsersGolfers(user_id=current_user.id, golfer_id=golfer_id)

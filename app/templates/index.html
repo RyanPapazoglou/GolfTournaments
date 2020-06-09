@@ -1,23 +1,22 @@
 {% extends "base.html" %}
 {% block app_content %}
     <div>
-        <h1>Welcome to golf</h1>
+        <h1>Welcome to The Back Nine</h1>
         <p>See below for an explanation on how this Pool is run.</p>
 
         <h2>Rules</h2>
         <p>
-            The way this pool is run is fairly simple. Each golf tournament runs from Thursday until Sunday,
+            The way this Pool is run is fairly simple. Each golf tournament runs from Thursday until Sunday,
             with the champion golfer being declared at the end of Sunday's round. The tournament begins
             promptly on Thursday morning. Prior to the Thursday start of the current golf tournament, each
             user will have the opportunity to build a Team of 10 golfers from the list of all golfers competing
             in the tournament. You can find the list of golfers competing in the current tournament on the
-            "Team Selection" page, which is sorted by the golfer's odds to win (best odds at the top,
+            "Team Builder" page, which is sorted by the golfer's odds to win (best odds at the top,
             worst odds at the bottom). Points are awarded to golfers who finish the tournament in the top 10
             positions of the leaderboard at the end of Sunday. Your goal is to select the best 10-man roster,
             which you believe will award you the most combined points at the end of the tournament. So ideally,
             you want to select the 10 golfers whom you believe will finish in the top 10. Once you select your
-            10-man roster, there is nothing more for you to do but sit back, enjoy some competitive golf and
-            let the chips fall where they may.
+            10-man roster, there is nothing more for you to do but sit back and let the chips fall where they may.
 
             *Note* - Multiple users may select the same golfer(s). There is no draft. There is no limit on
                      how many different teams can have the same individual golfer on their roster. For instance,
@@ -27,20 +26,59 @@
                      points.
 
             You may edit your 10-man roster at any time prior to the start of the tournament, but it is on you
-            to ensure that your roster is complete with 10 golfers - no more, no less. Once the first golfer of
-            the day tees off on Thursday, the tournament has begun and the selection page will be locked for
-            the entirety of the tournament, deeming the pool closed. You will not be able to go back and change
-            your 10-man roster. The Team you build is your Team for the entirety of the 4-day tournament.
+            to ensure that your roster is complete with 10 golfers - we will not auto-fill incomplete rosters.
+            Once the first golfer of the day tees off on Thursday, the tournament has begun and the selection
+            page will be locked for the entirety of the tournament, deeming the pool closed. You will not be
+            able to go back and change your 10-man roster. The Team you build is your Team for the entirety of
+            the 4-day tournament.
         </p>
 
         <h3>How Points are Awarded</h3>
         <p>
-            Points are not accumulated over rounds. If one of your golfers finished in the top 10 in each of
+            As mentioned above, points are awarded to golfers who finish in the top 10 of the tournament. The amount
+            of points a golfer in the top 10 receives is a function of his odds to win the tournament, as well as
+            his finishing position. A golfer's finishing position determines what percentage of his odds you will
+            earn for your Team. The finishing positions and their corresponding percentages are shown below:
+
+            1st Place - Points = 100% of Golfer Odds
+            2nd Place - Points = 90% of Golfer Odds
+            ...
+            10th Place - Points = 10% of Golfer Odds
+
+            For instance:
+            Assume one of your 10 golfers is Rory McIlroy, who is the favorite to win the tournament at 13/2 odds (+650).
+            If Rory finishes in 1st place you will get: 100% of +650 = 650 points
+            If Rory finishes in 3rd place you will get: 70% of +650 = 455 points
+            If Rory finishes in 10th place you will get: 10% of +650 = 65 points
+            If Rory finishes in 11th-Last you will get: 0 points
+
+            In order to calculate your Total Team Points on Sunday, you would determine how many of your 10
+            golfers finished in the top 10. You would then calculate, as we did above, how many points you
+            would earn for each golfer based on his odds to win and where he finished in the top 10. Finally,
+            you would take the sum of the points you earned from each golfer on your Team. Any golfers on your
+            10-man roster who do not finish in the top 10, will grant you 0 points towards your Total Team Points.
+
+            If there are golfers tied for a top 10 position, each golfer will receive the standard percentage of
+            his odds for that finishing position. For instance:
+
+            Assume Rory McIlroy (+650), Rickie Fowler (+2900), and Tony Finau (+3600) all tie for 5th Place.
+
+            Each Team with McIlroy will receive (50% of +650) = 325 Points
+            Each Team with Fowler will receive (50% of +2900) = 1450 Points
+            Each Team with Finau will receive (50% of +3600) = 1800 Points
+
+            Being that 3 golfers tied for 5th Place, there will no longer be a 6th or 7th Place finisher.
+            The next golfer behind these 3 in the top 10 would be in 8th Place which would grant Teams (that he
+            is a part of) an amount of points equal to 20% of his odds.
+
+            *Note* - Points are not accumulated over rounds. If one of your golfers finished in the top 10 in each of
             the first three rounds, then come Sunday, he finishes the tournament in 12th place, you are
             awarded 0 points for that golfer.
+
+            The Team with the most points at the end of the tournament wins the Pool.
         </p>
 
-        <h3>Team Builder</h3>
+        <h3>Team Builder & My Team</h3>
         <p>
             In order to select your 10-man roster, you will navigate to the "Team Builder" page. A link to
             this page is available in the navigation bar at the top of the site. Here, you will find a list
@@ -68,6 +106,22 @@
             the navigation bar). Here, you will find a list of all Teams in the pool, sorted by their current
             standing. Hovering over a Team Name will reveal a link to that Team's profile page. Profile pages
             are where you can find information about each Team, including the Team's Owner and Roster.
+        </p>
+
+        <h3>Schedule</h3>
+        <p>
+            A new Pool will be run for each of the 4 Golf Majors, as well as the 5th Unofficial
+            Major - The Players Tournament.
+
+            Golf Majors Schedule
+            British Open - July 16-19, 2020 (CANCELLED)
+            PGA Championship - August 6-9, 2020
+            US Open - September 17-20, 2020
+            Masters Tournament - November 12-15, 2020
+
+            Unofficial 5th Major
+            The Players Tournament - March 2020 (CANCELLED)
+
         </p>
     </div>
 {% endblock %}

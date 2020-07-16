@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block title %}
-    {% if title %}{{ title }} - Golf{% else %}Tournaments{% endif %}
+    {% if title %}{{ title }} - Golf{% else %}The Back Nine{% endif %}
 {% endblock %}
 {% block navbar %}
     <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
@@ -18,7 +18,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{ url_for('golf.index') }}">Golf</a>
+                <a class="navbar-brand" href="{{ url_for('golf.index') }}">The Back Nine</a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">

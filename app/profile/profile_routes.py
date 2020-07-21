@@ -5,8 +5,10 @@ from flask_login import login_required, current_user
 
 from app.models import Users, UsersGolfers
 from app.util import GolferEncoder
-from app import db
+from app import db, START_TIME
+import datetime
 
+CURRENT_TIME = datetime.datetime.now()
 bp = Blueprint("profile", __name__, url_prefix="/profile")
 
 @bp.route('/<team_name>', methods=["POST","GET"])
@@ -28,7 +30,8 @@ def profile(team_name):
         + "]"
     )
     golfers = json.loads(golfers)
-    return render_template('profile.html', user=user, golfers=golfers, count=(10-len(golfers)))
+    isRemovable = False if CURRENT_TIME > START_TIME else True
+    return render_template('profile.html', user=user, golfers=golfers, count=(10-len(golfers)), isRemovable=isRemovable)
 
 @bp.route('/remove', methods=["POST"])
 @login_required

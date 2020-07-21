@@ -12,7 +12,8 @@ m = Migrate(compare_type=True)
 login = LoginManager()
 bootstrap = Bootstrap()
 
-START_TIME = datetime.datetime(2020, 8, 5, 23, 59)
+TEAM_BUILDER_TIMEOUT = os.getenv('TEAM_BUILDER_TIMEOUT') if os.getenv('TEAM_BUILDER_TIMEOUT') else '05/08/20 23:59:59'
+START_TIME = datetime.datetime.strptime(TEAM_BUILDER_TIMEOUT, '%d/%m/%y %H:%M:%S')
 
 def create_app(test_config=None):
     # create and configure the app

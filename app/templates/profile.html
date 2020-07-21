@@ -15,12 +15,14 @@
 
     {% if golfers%}
         {% if user.id == current_user.id %}
-            <form class="form-inline" method="POST" action="{{ url_for('profile.remove_all')}}">
-                <button type="submit" class="btn btn-default" style="float:left">Remove All</button>
-            </form>
-            <form class="form-inline" method="POST" action="{{ url_for('profile.remove')}}" >
-            <button type="submit" class="btn btn-default">Remove Selected</button>
-            </br>
+            {% if isRemovable %}
+                <form class="form-inline" method="POST" action="{{ url_for('profile.remove_all')}}">
+                    <button type="submit" class="btn btn-default" style="float:left">Remove All</button>
+                </form>
+                <form class="form-inline" method="POST" action="{{ url_for('profile.remove')}}" >
+                <button type="submit" class="btn btn-default">Remove Selected</button>
+                </br>
+            {% endif %}
         {% endif %}
         {% for golfer in golfers %}
             {% if user.id == current_user.id %}<label class="form-check-label"><input type="checkbox" class="form-check-input" name="check" value="{{ golfer.id }}"> {{ golfer.first_name }} {{ golfer.last_name }}</label>{% endif %}

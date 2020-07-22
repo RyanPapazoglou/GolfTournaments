@@ -1,11 +1,13 @@
 import pandas as pd
+import os
+import math
 from app.golfers.golfers_dao import GolferDao
 
 
 class GolfersGenerator:
     @staticmethod
     def read_golfer_data():
-        golfers_df = pd.read_csv("app/golfers/PGA Championship Golfer File - PGA Golfers.csv")
+        golfers_df = pd.read_csv("app/golfers/3M Open Golfer File - PGA Golfers.csv")
 
         golfers_num_rows, golfers_num_cols = golfers_df.shape
         print("Rows: ", golfers_num_rows, "\nCols: ", golfers_num_cols)
@@ -19,9 +21,11 @@ class GolfersGenerator:
                 odds = int(res)*100
             except ValueError as e:
                 print(e)
+            picture_url = golfers_df.iloc[i, 5] if os.path.isfile('app/static/'+golfers_df.iloc[i, 5]) else 'default.png'
+            world_rank = str(int(golfers_df.iloc[i, 2])) if not math.isnan(golfers_df.iloc[i, 2]) else 'N/A'
             GolferDao.store_golfer(first_name=str(golfers_df.iloc[i, 0]), last_name=str(golfers_df.iloc[i, 1]),
-                             world_rank=str(golfers_df.iloc[i, 2]), odds=odds, odds_ratio=str(golfers_df.iloc[i, 3]), current_standing=int(golfers_df.iloc[i, 4]),
-                             picture_url=str(golfers_df.iloc[i, 5]))
+                             world_rank=world_rank, odds=odds, odds_ratio=str(golfers_df.iloc[i, 3]), current_standing=int(golfers_df.iloc[i, 4]),
+                             picture_url=picture_url)
         print("Done.")
 
     @staticmethod

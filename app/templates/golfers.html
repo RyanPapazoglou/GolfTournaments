@@ -4,7 +4,17 @@
     <script>
         function count(){
             var count = document.querySelectorAll('input[type="checkbox"]:checked').length;
+            var currentTeamSize = {{ count | safe }}
             document.getElementById("count").innerHTML=count;
+            const button = document.getElementById('submitPicks');
+            const warning = document.getElementById('warningMessage');
+            if(count + currentTeamSize > 10) {
+                button.disabled = true;
+                warning.hidden = false;
+            } else {
+                button.disabled = false;
+                warning.hidden = true;
+            }
         }
     </script>
     <form class="form-inline" method="POST" action="{{ url_for('golfers.submit') }}">
@@ -24,10 +34,13 @@
         </br>
         <nav class="navbar navbar-inverse navbar-fixed-bottom">
           <div class="container">
-              <button type="submit" class="btn btn-default">Submit
+              <button type="submit" class="btn btn-default" id="submitPicks">Submit
                   <span id="count">0</span>
-                  <span> selected golfers (10 max) </span>
+                  <span> selected golfers </span>
               </button>
+              <span style="color: white; font-weight: bold" hidden="hidden" id="warningMessage">
+                  This submission puts your roster above 10 total golfers. You currently have {{ count }} golfer's on your team.
+              </span>
           </div>
         </nav>
     </form>

@@ -17,10 +17,6 @@ TIMEOUT = os.getenv('TEAM_BUILDER_TIMEOUT') if os.getenv('TEAM_BUILDER_TIMEOUT')
 START_TIME = datetime.datetime.strptime(TIMEOUT, '%d/%m/%Y %H:%M:%S')
 CURRENT_TIME = datetime.datetime.now()
 
-print(START_TIME)
-print(CURRENT_TIME)
-print(CURRENT_TIME > START_TIME)
-
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)

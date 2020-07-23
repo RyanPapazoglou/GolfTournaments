@@ -19,8 +19,7 @@ local_dt = local.localize(TIMEOUT, is_dst=None)
 TEAM_BUILDER_TIMEOUT = local_dt.astimezone(pytz.utc)
 START_TIME = TEAM_BUILDER_TIMEOUT
 
-CURRENT_TIME = local.localize(datetime.datetime.now(), is_dst=None)
-CURRENT_TIME = CURRENT_TIME.astimezone(pytz.utc)
+CURRENT_TIME = pytz.utc.localize(datetime.datetime.now())
 
 def create_app(test_config=None):
     # create and configure the app

@@ -1,11 +1,11 @@
 import json
-
+import datetime
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required, current_user
 
 from app.models import Users, UsersGolfers
 from app.util import GolferEncoder
-from app import db, START_TIME, CURRENT_TIME
+from app import db, START_TIME
 
 bp = Blueprint("profile", __name__, url_prefix="/profile")
 
@@ -28,7 +28,7 @@ def profile(team_name):
         + "]"
     )
     golfers = json.loads(golfers)
-    isRemovable = False if CURRENT_TIME > START_TIME else True
+    isRemovable = False if datetime.datetime.now() > START_TIME else True
     return render_template('profile.html', user=user, golfers=golfers, count=(10-len(golfers)), isRemovable=isRemovable)
 
 @bp.route('/remove', methods=["POST"])

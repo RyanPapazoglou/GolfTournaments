@@ -1,6 +1,7 @@
+import datetime
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import current_user, login_required
-from app import db, START_TIME, CURRENT_TIME, local
+from app import db, START_TIME, local
 from app.models import Golfers, UsersGolfers
 
 bp = Blueprint("golfers", __name__, url_prefix="/golfers")
@@ -8,7 +9,7 @@ bp = Blueprint("golfers", __name__, url_prefix="/golfers")
 @bp.route("/select", methods=["GET"])
 @login_required
 def select():
-    if(CURRENT_TIME > START_TIME):
+    if datetime.datetime.now() > START_TIME:
         return render_template("closed.html")
     golfers = Golfers.query.order_by(Golfers.odds, Golfers.world_rank).all()
     current_golfers = UsersGolfers.query.filter_by(user_id=current_user.id).all()
@@ -22,7 +23,7 @@ def select():
 @bp.route("/submit", methods=["POST"])
 @login_required
 def submit():
-    if (CURRENT_TIME > START_TIME):
+    if datetime.datetime.now() > START_TIME:
         return render_template("closed.html")
     golfer_ids = request.form.getlist('check')
     if len(golfer_ids) > 10:

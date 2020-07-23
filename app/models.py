@@ -105,7 +105,7 @@ class UsersGolfers(db.Model):
         ForeignKey("users.id"),
         primary_key=True
     )
-    golfer = db.relationship(Golfers, back_populates="users")
+    golfer = db.relationship(Golfers, back_populates="users", order_by="desc(Golfers.odds),desc(Golfers.world_rank)")
     user = db.relationship(Users, back_populates="golfers")
 
     def __init__(self, golfer_id, user_id):

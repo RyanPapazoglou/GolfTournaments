@@ -1,12 +1,9 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import current_user, login_required
-
-from app import db, START_TIME
+from app import db, START_TIME, CURRENT_TIME, local
 from app.models import Golfers, UsersGolfers
-import datetime
 
 bp = Blueprint("golfers", __name__, url_prefix="/golfers")
-CURRENT_TIME = datetime.datetime.now()
 
 @bp.route("/select", methods=["GET"])
 @login_required
@@ -19,7 +16,8 @@ def select():
     for golfer in current_golfers:
         golfer_ids.append(golfer.golfer_id)
     golfers = [golfer for golfer in golfers if golfer.id not in golfer_ids]
-    return render_template("golfers.html", golfers=golfers, count=len(current_golfers), start_time=START_TIME.strftime("%B %d, %Y %I:%M:%S %p EST"))
+    EST_TIME = START_TIME.astimezone(local).strftime("%B %d, %Y %I:%M:%S %p EST")
+    return render_template("golfers.html", golfers=golfers, count=len(current_golfers), start_time=EST_TIME)
 
 @bp.route("/submit", methods=["POST"])
 @login_required

@@ -5,10 +5,8 @@ from flask_login import login_required, current_user
 
 from app.models import Users, UsersGolfers
 from app.util import GolferEncoder
-from app import db, START_TIME
-import datetime
+from app import db, START_TIME, CURRENT_TIME
 
-CURRENT_TIME = datetime.datetime.now()
 bp = Blueprint("profile", __name__, url_prefix="/profile")
 
 @bp.route('/<team_name>', methods=["POST","GET"])

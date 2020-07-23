@@ -1,6 +1,6 @@
 import os
 import datetime
-
+import pytz
 from flask import Flask
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
@@ -12,8 +12,15 @@ m = Migrate(compare_type=True)
 login = LoginManager()
 bootstrap = Bootstrap()
 
-TEAM_BUILDER_TIMEOUT = os.getenv('TEAM_BUILDER_TIMEOUT') if os.getenv('TEAM_BUILDER_TIMEOUT') else '05/08/20 23:59:59'
-START_TIME = datetime.datetime.strptime(TEAM_BUILDER_TIMEOUT, '%d/%m/%Y %H:%M:%S')
+local = pytz.timezone('US/Eastern')
+TIMEOUT = os.getenv('TEAM_BUILDER_TIMEOUT') if os.getenv('TEAM_BUILDER_TIMEOUT') else '05/08/2020 23:59:59'
+TIMEOUT = datetime.datetime.strptime(TIMEOUT, '%d/%m/%Y %H:%M:%S')
+local_dt = local.localize(TIMEOUT, is_dst=None)
+TEAM_BUILDER_TIMEOUT = local_dt.astimezone(pytz.utc)
+START_TIME = TEAM_BUILDER_TIMEOUT
+
+CURRENT_TIME = local.localize(datetime.datetime.now(), is_dst=None)
+CURRENT_TIME = CURRENT_TIME.astimezone(pytz.utc)
 
 def create_app(test_config=None):
     # create and configure the app

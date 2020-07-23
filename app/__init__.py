@@ -14,12 +14,12 @@ bootstrap = Bootstrap()
 
 local = pytz.timezone('US/Eastern')
 TIMEOUT = os.getenv('TEAM_BUILDER_TIMEOUT') if os.getenv('TEAM_BUILDER_TIMEOUT') else '05/08/2020 23:59:59'
-TIMEOUT = datetime.datetime.strptime(TIMEOUT, '%d/%m/%Y %H:%M:%S')
-local_dt = local.localize(TIMEOUT, is_dst=None)
-TEAM_BUILDER_TIMEOUT = local_dt.astimezone(pytz.utc)
-START_TIME = TEAM_BUILDER_TIMEOUT
+START_TIME = datetime.datetime.strptime(TIMEOUT, '%d/%m/%Y %H:%M:%S')
+CURRENT_TIME = datetime.datetime.now()
 
-CURRENT_TIME = pytz.utc.localize(datetime.datetime.now())
+print(START_TIME)
+print(CURRENT_TIME)
+print(CURRENT_TIME > START_TIME)
 
 def create_app(test_config=None):
     # create and configure the app

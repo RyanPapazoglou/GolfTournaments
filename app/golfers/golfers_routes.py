@@ -19,7 +19,7 @@ def select():
     for golfer in current_golfers:
         golfer_ids.append(golfer.golfer_id)
     golfers = [golfer for golfer in golfers if golfer.id not in golfer_ids]
-    return render_template("golfers.html", golfers=golfers, count=len(current_golfers), start_time=START_TIME.strftime("%B %d, %Y %I:%Mpm"))
+    return render_template("golfers.html", golfers=golfers, count=len(current_golfers), start_time=START_TIME.strftime("%B %d, %Y %I:%M:%S %p EST"))
 
 @bp.route("/submit", methods=["POST"])
 @login_required

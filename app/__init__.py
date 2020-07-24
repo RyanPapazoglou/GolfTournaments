@@ -6,6 +6,7 @@ from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_bootstrap import Bootstrap
+from app.scraper.scheduler.jobs.scraper_job import ScraperJob
 
 db = SQLAlchemy()
 m = Migrate(compare_type=True)
@@ -45,6 +46,7 @@ def create_app(test_config=None):
         from app.models import Users, Golfers, UsersGolfers
         from app import index
         from app.auth import auth_routes
+        from app.scraper import scraper_routes, scraper_dao
         from app.profile import profile_routes, profile_dao
         from app.golfers import golfers_routes, golfers_dao
         from app.errors import page_not_found, internal_error
@@ -53,6 +55,7 @@ def create_app(test_config=None):
         app.register_blueprint(auth_routes.bp)
         app.register_blueprint(profile_routes.bp)
         app.register_blueprint(golfers_routes.bp)
+        app.register_blueprint(scraper_routes.bp)
         app.register_error_handler(404, page_not_found)
         app.register_error_handler(500, internal_error)
 
@@ -60,4 +63,4 @@ def create_app(test_config=None):
 
 if __name__ == "__main__":
     app = create_app()
-    app.run()
+    app.run(use_reloader=False)

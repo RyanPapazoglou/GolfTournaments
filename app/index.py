@@ -15,6 +15,9 @@ def index():
 @login_required
 def leaderboard():
     golfer_update = Golfers.query.filter(Golfers.updated_at != None).first()
-    update = golfer_update.updated_at.astimezone(local).strftime("%B %d, %Y %I:%M:%S %p EST")
+    if golfer_update:
+        update = golfer_update.updated_at.astimezone(local).strftime("%B %d, %Y %I:%M:%S %p EST")
+    else:
+        update = 'Not yet updated'
     players=Users.query.order_by(desc(Users.points)).all()
     return render_template("leaderboard.html", players=players, update=update)

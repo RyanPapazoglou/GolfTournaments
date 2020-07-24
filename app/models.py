@@ -66,13 +66,14 @@ class Golfers(db.Model):
     odds = db.Column(Integer)
     odds_ratio = db.Column(String())
     current_standing = db.Column(Integer)
+    current_points = db.Column(Integer)
     picture_url = db.Column(String())
     updated_at = db.Column(DateTime())
     users = db.relationship(
         "UsersGolfers", back_populates="golfer"
     )
 
-    def __init__(self, first_name, last_name, world_rank, odds, odd_ratio, current_standing,picture_url):
+    def __init__(self, first_name, last_name, world_rank, odds, odd_ratio, current_standing, picture_url, updated_at, current_points):
         self.first_name = first_name
         self.last_name = last_name
         self.world_rank = world_rank
@@ -80,6 +81,8 @@ class Golfers(db.Model):
         self.odds_ratio = odd_ratio
         self.current_standing = current_standing
         self.picture_url = picture_url
+        self.current_points = current_points
+        self.updated_at = updated_at
 
     def to_json(self):
         return {
@@ -91,7 +94,8 @@ class Golfers(db.Model):
             "odds_ratio":self.odds_ratio,
             "current_standing":self.current_standing,
             "updated_at":str(self.updated_at),
-            "picture_url":self.picture_url
+            "picture_url":self.picture_url,
+            "current_points":self.current_points
         }
 
 class UsersGolfers(db.Model):

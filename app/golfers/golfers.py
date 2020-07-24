@@ -24,8 +24,9 @@ class GolfersGenerator:
             picture_url = golfers_df.iloc[i, 5] if os.path.isfile('app/static/'+golfers_df.iloc[i, 5]) else 'default.png'
             world_rank = str(int(golfers_df.iloc[i, 2])) if not math.isnan(golfers_df.iloc[i, 2]) else 'N/A'
             GolferDao.store_golfer(first_name=str(golfers_df.iloc[i, 0]), last_name=str(golfers_df.iloc[i, 1]),
-                             world_rank=world_rank, odds=odds, odds_ratio=str(golfers_df.iloc[i, 3]), current_standing=int(golfers_df.iloc[i, 4]),
-                             picture_url=picture_url)
+                                   world_rank=world_rank, odds=odds, odds_ratio=str(golfers_df.iloc[i, 3]),
+                                   current_standing=int(golfers_df.iloc[i, 4]), current_points=None,
+                                   picture_url=picture_url)
         print("Done.")
 
     @staticmethod

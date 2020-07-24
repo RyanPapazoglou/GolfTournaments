@@ -18,6 +18,9 @@ flask-login = "*"
 flask-bootstrap = "*"
 pandas = "*"
 gunicorn = "==20.0.4"
+beautifulsoup4 = "*"
+requests = "*"
+apscheduler = "*"
 
 [requires]
 python_version = "3.8"

@@ -1,5 +1,5 @@
 import uuid
-from sqlalchemy import String, ForeignKey, Integer
+from sqlalchemy import String, ForeignKey, Integer, DateTime
 from sqlalchemy.dialects.postgresql import UUID
 from app import db
 from werkzeug.security import check_password_hash
@@ -67,17 +67,19 @@ class Golfers(db.Model):
     odds_ratio = db.Column(String())
     current_standing = db.Column(Integer)
     picture_url = db.Column(String())
+    updated_at = db.Column(DateTime())
     users = db.relationship(
         "UsersGolfers", back_populates="golfer"
     )
 
-    def __init__(self, first_name, last_name, world_rank, odds, odd_ratio, current_standing,picture_url):
+    def __init__(self, first_name, last_name, world_rank, odds, odd_ratio, current_standing,picture_url,updated_at):
         self.first_name = first_name
         self.last_name = last_name
         self.world_rank = world_rank
         self.odds = odds
         self.odds_ratio = odd_ratio
         self.current_standing = current_standing
+        self.updated_at = updated_at
         self.picture_url = picture_url
 
     def to_json(self):
@@ -89,6 +91,7 @@ class Golfers(db.Model):
             "odds":self.odds,
             "odds_ratio":self.odds_ratio,
             "current_standing":self.current_standing,
+            "updated_at":self.updated_at,
             "picture_url":self.picture_url
         }
 

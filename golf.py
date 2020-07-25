@@ -10,7 +10,7 @@ scheduler = BackgroundScheduler()
 scheduler.add_job(
     func=ScraperJob.scrape,
     trigger="interval",
-    hours=2,
+    hours=1,
     coalesce=True,
 )
 try:

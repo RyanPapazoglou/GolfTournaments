@@ -6,6 +6,7 @@
             <td>
                 <h1>{{ user.team_name }}</h1>
                 <h3>Owner: {{ user.first_name }} {{ user.last_name }}</h3>
+                <h3>Total Points: {{ user.points }}</h3>
                 {% if user.id == current_user.id %}
                     <h5>You have {{ count }} open spots left on your team.</h5>
                 {% endif %}

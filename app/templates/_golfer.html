@@ -1,3 +1,4 @@
+
     <table class="table table-hover">
         <tr>
             <td width="100px">
@@ -11,6 +12,16 @@
             </td>
             <td width="100px">
                 Odds: <strong>+{{ golfer.odds }}</strong> or <strong> {{ golfer.odds_ratio }}</strong>
+            </td>
+            <td width="100px">
+                {% if golfer.current_standing == 0 %}
+                    Current Standing: <strong> N/A </strong>
+                {% else %}
+                    Current Standing: <strong>{{ golfer.current_standing }}</strong>
+                {% endif %}
+            </td>
+            <td width="100px">
+                Current Points: <strong> {{ golfer.current_points }}</strong>
             </td>
         </tr>
     </table>

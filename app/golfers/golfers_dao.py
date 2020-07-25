@@ -5,12 +5,12 @@ from app.models import Golfers
 
 class GolferDao:
     @staticmethod
-    def store_golfer(first_name, last_name, world_rank, odds, odds_ratio, current_standing, picture_url):
+    def store_golfer(first_name, last_name, world_rank, odds, odds_ratio, current_standing, picture_url, current_points):
         try:
             golfer = Golfers(first_name=first_name, last_name=last_name,
                              world_rank=world_rank, odds=odds, odd_ratio=odds_ratio,
                              current_standing=current_standing, picture_url=picture_url,
-                             updated_at=None)
+                             updated_at=None, current_points=current_points)
             db.session.add(golfer)
             db.session.commit()
         except Exception as e:
@@ -22,6 +22,7 @@ class GolferDao:
     def reset_standings():
         try:
             Golfers.query.update({Golfers.current_standing: 0})
+            Golfers.query.update({Golfers.current_points: 0})
             db.session.commit()
         except Exception as e:
             print(e)
@@ -36,6 +37,7 @@ class GolferDao:
                 func.lower(Golfers.last_name)==func.lower(last_name)).first()
             if golfer:
                 golfer.current_standing = standing
+                golfer.current_points = golfer.odds * (1.1-(.1 * standing))
                 db.session.add(golfer)
                 db.session.commit()
         except Exception as e:

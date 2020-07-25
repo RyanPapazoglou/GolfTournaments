@@ -8,6 +8,7 @@ class ScraperDao:
     def reset_standings():
         try:
             Golfers.query.update({Golfers.current_standing: 0})
+            Golfers.query.update({Golfers.current_points: 0})
             Golfers.query.update({Golfers.updated_at: None})
             db.session.commit()
         except Exception as e:
@@ -23,6 +24,7 @@ class ScraperDao:
                 func.lower(Golfers.last_name)==func.lower(last_name)).first()
             if golfer:
                 golfer.current_standing = standing
+                golfer.current_points = golfer.odds * (1.1 - (.1 * int(standing)))
                 golfer.updated_at = datetime.datetime.now()
                 db.session.add(golfer)
                 db.session.commit()

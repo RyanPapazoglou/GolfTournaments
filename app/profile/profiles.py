@@ -28,7 +28,7 @@ class Profiles:
             golfers = json.loads(golfers)
             for golfer in golfers:
                 if golfer['current_standing'] and golfer['current_standing'] < 11:
-                    new_points += golfer['odds']*(1.1-(.1 * golfer['current_standing']))
+                    new_points += golfer['current_points']
             ProfileDao.set_points(user, new_points)
 
     @staticmethod

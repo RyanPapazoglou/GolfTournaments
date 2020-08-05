@@ -13,6 +13,8 @@ bp = Blueprint("profile", __name__, url_prefix="/profile")
 @login_required
 def profile(team_name):
     user = Users.query.filter_by(team_name=team_name).first_or_404()
+    if current_user.id != user.id and datetime.datetime.now() < START_TIME:
+        return render_template('not_viewable.html')
     golfers_results = UsersGolfers.query.filter_by(user_id=user.id).all()
     golfers = ("["
         + ",".join(

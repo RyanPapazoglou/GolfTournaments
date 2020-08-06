@@ -1,5 +1,7 @@
+import click
 from apscheduler.schedulers.background import BackgroundScheduler
 from app import create_app, db
+from app.auth.auth_dao import AuthDao
 from app.models import Golfers, UsersGolfers, Users
 from app.golfers.golfers import GolfersGenerator
 from app.profile.profiles import Profiles
@@ -22,7 +24,9 @@ except SystemExit as e:
 
 @app.shell_context_processor
 def make_shell_context():
-    return dict(app=app, db=db, Users=Users, Golfers=Golfers, UsersGolfers=UsersGolfers, GolfersGenerator=GolfersGenerator, Profiles=Profiles, Scraper=ScraperJob)
+    return dict(app=app, db=db, Users=Users, Golfers=Golfers,
+                UsersGolfers=UsersGolfers, GolfersGenerator=GolfersGenerator,
+                Profiles=Profiles, Scraper=ScraperJob, AuthDao=AuthDao)
 
 @app.cli.command("populate")
 def populate():
@@ -43,3 +47,9 @@ def reset_points():
 @app.cli.command("scrape")
 def scrape_esp():
     ScraperJob.scrape()
+
+@app.cli.command("reset-pw")
+@click.argument('team')
+@click.argument('password')
+def reset_password(team, password):
+    AuthDao.update_password(team, password)

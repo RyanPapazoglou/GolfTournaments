@@ -2,6 +2,7 @@ import os
 import datetime
 import pytz
 from flask import Flask
+from flask_mail import Mail
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
@@ -12,10 +13,15 @@ db = SQLAlchemy()
 m = Migrate(compare_type=True)
 login = LoginManager()
 bootstrap = Bootstrap()
+mail = Mail()
 
-local = pytz.timezone('US/Eastern')
-TIMEOUT = os.getenv('TEAM_BUILDER_TIMEOUT') if os.getenv('TEAM_BUILDER_TIMEOUT') else '05/08/2020 23:59:59'
-START_TIME = datetime.datetime.strptime(TIMEOUT, '%d/%m/%Y %H:%M:%S')
+local = pytz.timezone("US/Eastern")
+TIMEOUT = (
+    os.getenv("TEAM_BUILDER_TIMEOUT")
+    if os.getenv("TEAM_BUILDER_TIMEOUT")
+    else "05/08/2020 23:59:59"
+)
+START_TIME = datetime.datetime.strptime(TIMEOUT, "%d/%m/%Y %H:%M:%S")
 
 
 def create_app(test_config=None):
@@ -26,6 +32,7 @@ def create_app(test_config=None):
         app.config.from_object(os.environ["APP_SETTINGS"])
         app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
         app.config.from_pyfile("config.py", silent=True)
+
     else:
         # load the test config if passed in
         app.config.from_mapping(test_config)
@@ -39,8 +46,9 @@ def create_app(test_config=None):
     db.init_app(app)
     m.init_app(app=app, db=db)
     login.init_app(app=app)
-    login.login_view = 'auth.login'
+    login.login_view = "auth.login"
     bootstrap.init_app(app=app)
+    mail.init_app(app=app)
 
     with app.app_context():
         from app.models import Users, Golfers, UsersGolfers
@@ -60,6 +68,7 @@ def create_app(test_config=None):
         app.register_error_handler(500, internal_error)
 
     return app
+
 
 if __name__ == "__main__":
     app = create_app()

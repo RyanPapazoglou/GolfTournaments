@@ -1,3 +1,4 @@
+import logging
 import os
 import datetime
 import pytz
@@ -42,6 +43,14 @@ def create_app(test_config=None):
         os.makedirs(app.instance_path)
     except OSError:
         pass
+
+    if app.config["LOG_TO_STDOUT"]:
+        stream_handler = logging.StreamHandler()
+        stream_handler.setLevel(logging.INFO)
+        app.logger.addHandler(stream_handler)
+
+    app.logger.setLevel(logging.INFO)
+    app.logger.info("App startup")
 
     db.init_app(app)
     m.init_app(app=app, db=db)

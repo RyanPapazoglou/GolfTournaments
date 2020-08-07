@@ -1,0 +1,34 @@
+from flask import render_template, current_app
+from flask_mail import Message
+from app import mail
+from threading import Thread
+
+
+class Email:
+    @staticmethod
+    def send_password_reset_email(user):
+        token = user.get_reset_password_token()
+        Email.send_email(
+            "[11HighStreet] Reset Your Password",
+            sender=current_app.config["MAIL_USERNAME"],
+            recipients=[user.email],
+            text_body=render_template(
+                "email/reset_password.txt", user=user, token=token
+            ),
+            html_body=render_template(
+                "email/reset_password.html", user=user, token=token
+            ),
+        )
+
+    @staticmethod
+    def send_async_email(app, msg):
+        with app.app_context():
+            mail.send(msg)
+
+    @staticmethod
+    def send_email(subject, sender, recipients, text_body, html_body):
+        app = current_app._get_current_object()
+        msg = Message(subject, sender=sender, recipients=recipients)
+        msg.body = text_body
+        msg.html = html_body
+        Thread(target=Email.send_async_email, args=(app, msg)).start()

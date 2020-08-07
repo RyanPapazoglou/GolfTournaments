@@ -17,7 +17,21 @@ try:
     if not scheduler.running:
         scheduler.start()
         app.logger.info("Scheduler running: " + str(scheduler.running))
-        app.logger.info("Scheduler jobs: " + str(scheduler.get_jobs()))
+        jobs = scheduler.get_jobs()
+        if jobs:
+            app.logger.info("Scheduler jobs: " + str(jobs))
+            for job in jobs:
+                app.logger.info(
+                    "Job: "
+                    + str(job.name)
+                    + "("
+                    + str(job.func)
+                    + ")"
+                    + " will run next at: "
+                    + str(job.next_run_time)
+                    + " on trigger: "
+                    + str(job.trigger)
+                )
 except KeyboardInterrupt as e:
     scheduler.shutdown()
 except SystemExit as e:

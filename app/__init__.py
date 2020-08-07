@@ -2,6 +2,7 @@ import logging
 import os
 import datetime
 import pytz
+from apscheduler.schedulers.background import BackgroundScheduler
 from flask import Flask
 from flask_mail import Mail
 from flask_migrate import Migrate
@@ -81,4 +82,34 @@ def create_app(test_config=None):
 
 if __name__ == "__main__":
     app = create_app()
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(
+        func=ScraperJob.scrape, trigger="interval", hours=1, coalesce=True,
+    )
+    try:
+        app.logger.info("Scheduler running: " + str(scheduler.running))
+        if not scheduler.running:
+            scheduler.start()
+            app.logger.info("Scheduler running: " + str(scheduler.running))
+            jobs = scheduler.get_jobs()
+            if jobs:
+                app.logger.info("Scheduler jobs: " + str(jobs))
+                for job in jobs:
+                    app.logger.info(
+                        "Job: "
+                        + str(job.name)
+                        + "("
+                        + str(job.func)
+                        + ")"
+                        + " will run next at: "
+                        + str(job.next_run_time)
+                        + " on trigger: "
+                        + str(job.trigger)
+                    )
+    except KeyboardInterrupt as e:
+        app.logger.info("Job failed, keyboard interrupt")
+        scheduler.shutdown()
+    except SystemExit as e:
+        app.logger.info("Job failed, system exit")
+        scheduler.shutdown()
     app.run(use_reloader=False)

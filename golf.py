@@ -8,34 +8,6 @@ from app.profile.profiles import Profiles
 from app.scraper.scheduler.jobs.scraper_job import ScraperJob
 
 app = create_app()
-scheduler = BackgroundScheduler()
-scheduler.add_job(
-    func=ScraperJob.scrape, trigger="interval", hours=1, coalesce=True,
-)
-try:
-    app.logger.info("Scheduler running: " + str(scheduler.running))
-    if not scheduler.running:
-        scheduler.start()
-        app.logger.info("Scheduler running: " + str(scheduler.running))
-        jobs = scheduler.get_jobs()
-        if jobs:
-            app.logger.info("Scheduler jobs: " + str(jobs))
-            for job in jobs:
-                app.logger.info(
-                    "Job: "
-                    + str(job.name)
-                    + "("
-                    + str(job.func)
-                    + ")"
-                    + " will run next at: "
-                    + str(job.next_run_time)
-                    + " on trigger: "
-                    + str(job.trigger)
-                )
-except KeyboardInterrupt as e:
-    scheduler.shutdown()
-except SystemExit as e:
-    scheduler.shutdown()
 
 
 @app.shell_context_processor

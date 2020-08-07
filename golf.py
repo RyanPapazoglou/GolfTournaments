@@ -13,11 +13,11 @@ scheduler.add_job(
     func=ScraperJob.scrape, trigger="interval", hours=1, coalesce=True,
 )
 try:
-    print(scheduler.running)
+    app.logger.info("Scheduler running: " + str(scheduler.running))
     if not scheduler.running:
         scheduler.start()
-        print(scheduler.running)
-        print(scheduler.get_jobs())
+        app.logger.info("Scheduler running: " + str(scheduler.running))
+        app.logger.info("Scheduler jobs: " + str(scheduler.get_jobs()))
 except KeyboardInterrupt as e:
     scheduler.shutdown()
 except SystemExit as e:

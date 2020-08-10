@@ -68,12 +68,14 @@ def create_app(test_config=None):
         from app.profile import profile_routes, profile_dao
         from app.golfers import golfers_routes, golfers_dao
         from app.errors import page_not_found, internal_error
+        from app.email import email_routes
 
         app.register_blueprint(index.bp)
         app.register_blueprint(auth_routes.bp)
         app.register_blueprint(profile_routes.bp)
         app.register_blueprint(golfers_routes.bp)
         app.register_blueprint(scraper_routes.bp)
+        app.register_blueprint(email_routes.bp)
         app.register_error_handler(404, page_not_found)
         app.register_error_handler(500, internal_error)
 

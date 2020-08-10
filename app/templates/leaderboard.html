@@ -1,12 +1,36 @@
 {% extends "base.html" %}
 {% block app_content %}
     <div>
-        <h1>Leaderboard</h1>
-        <h3>
-            Points are updated every hour using the standings at that time.<br/>
-            Please note no points are final until the tournament is over.<br/>
-            Last Updated: {{ update }}
-        </h3>
+        <h1 class='text-center'>Leaderboard</h1>
+        <button class="btn btn-light btn-lg btn-block" type="button" data-toggle="collapse" data-target="#infoTable" aria-expanded="false" aria-controls="infoTable">
+            Click for information regarding updates to the board
+        </button>
+        <div class="collapse" id="infoTable">
+            <div class="card card-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <th>Info</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                Points are updated throughout the day using <a href="http://www.espn.com/golf//leaderboard" target="_blank" >ESPN</a> standings at that time.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                 No points are final until the tournament is over and calculations have been reviewed by site admins.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                 Last Updated: {{ update }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
         <table class="table table-hover">
             <tr>
                 <td>
@@ -32,18 +56,18 @@
             </tr>
         </table>
     {% endif %}
-    <nav aria-label="...">
-        <ul class="pager">
-            <li class="previous{% if not prev_url %} disabled{% endif %}">
-                <a href="{{ prev_url or '#' }}">
-                    <span aria-hidden="true">&larr;</span> Back
-                </a>
-            </li>
-            <li class="next{% if not next_url %} disabled{% endif %}">
-                <a href="{{ next_url or '#' }}">
-                    Next <span aria-hidden="true">&rarr;</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+{#    <nav aria-label="...">#}
+{#        <ul class="pager">#}
+{#            <li class="previous{% if not prev_url %} disabled{% endif %}">#}
+{#                <a href="{{ prev_url or '#' }}">#}
+{#                    <span aria-hidden="true">&larr;</span> Back#}
+{#                </a>#}
+{#            </li>#}
+{#            <li class="next{% if not next_url %} disabled{% endif %}">#}
+{#                <a href="{{ next_url or '#' }}">#}
+{#                    Next <span aria-hidden="true">&rarr;</span>#}
+{#                </a>#}
+{#            </li>#}
+{#        </ul>#}
+{#    </nav>#}
 {% endblock %}

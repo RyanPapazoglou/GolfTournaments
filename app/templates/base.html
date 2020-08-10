@@ -32,6 +32,7 @@
                         <li><a href="{{ url_for('golf.leaderboard') }}">Leaderboard</a></li>
                         <li><a href="{{ url_for('golfers.select') }}">Team Builder</a></li>
                         <li><a href="{{ url_for('profile.profile', team_name=current_user.team_name) }}">My Team</a></li>
+                        <li><a href="{{ url_for('email.contact') }}">Contact Admins</a></li>
                         <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
                     {% endif %}
                 </ul>

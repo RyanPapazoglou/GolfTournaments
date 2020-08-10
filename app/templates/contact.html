@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+    <h2>Contact the admins</h2>
+    {% if success %}
+        <p>Thank you for your message. We'll get back to you shortly.</p>
+    {% else %}
+        {{ wtf.quick_form(form) }}
+    {% endif %}
+{% endblock %}

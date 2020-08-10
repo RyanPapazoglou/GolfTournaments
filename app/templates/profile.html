@@ -1,18 +1,14 @@
 {% extends "base.html" %}
 
 {% block app_content %}
-    <table class="table table-hover">
-        <tr>
-            <td>
-                <h1>{{ user.team_name }}</h1>
-                <h3>Owner: {{ user.first_name }} {{ user.last_name }}</h3>
-                <h3>Total Points: {{ user.points }}</h3>
-                {% if user.id == current_user.id %}
-                    <h5>You have {{ count }} open spots left on your team.</h5>
-                {% endif %}
-            </td>
-        </tr>
-    </table>
+    <div class="jumbotron jumbotron-fluid">
+        <h2>{{ user.team_name }}</h2>
+        <h3>Owner: {{ user.first_name }} {{ user.last_name }}</h3>
+        <h3>Total Points: {{ user.points }}</h3>
+        {% if user.id == current_user.id %}
+            <h4>You have {{ count }} open spots left on your team.</h4>
+        {% endif %}
+    </div>
 
     {% if golfers%}
         {% if user.id == current_user.id %}
@@ -26,7 +22,7 @@
             {% endif %}
         {% endif %}
         {% for golfer in golfers %}
-            {% if user.id == current_user.id %}<label class="form-check-label"><input type="checkbox" class="form-check-input" name="check" value="{{ golfer.id }}"> {{ golfer.first_name }} {{ golfer.last_name }}</label>{% endif %}
+            {% if user.id == current_user.id and isRemovable %}<label class="form-check-label"><input type="checkbox" class="form-check-input" name="check" value="{{ golfer.id }}"> {{ golfer.first_name }} {{ golfer.last_name }}</label>{% endif %}
             {% include '_golfer.html' %}
         {% endfor %}
         {% if user.id == current_user.id %}</form>{% endif %}

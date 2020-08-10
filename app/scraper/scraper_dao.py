@@ -3,6 +3,7 @@ from sqlalchemy import func
 from app import db
 from app.models import Golfers
 
+
 class ScraperDao:
     @staticmethod
     def reset_standings():
@@ -19,12 +20,21 @@ class ScraperDao:
     @staticmethod
     def update_standings(first_name, last_name, standing):
         try:
-            golfer = db.session.query(Golfers).filter(
-                func.lower(Golfers.first_name)==func.lower(first_name),
-                func.lower(Golfers.last_name)==func.lower(last_name)).first()
+            golfer = (
+                db.session.query(Golfers)
+                .filter(
+                    func.lower(Golfers.first_name) == func.lower(first_name),
+                    func.lower(Golfers.last_name) == func.lower(last_name),
+                )
+                .first()
+            )
             if golfer:
                 golfer.current_standing = standing
-                golfer.current_points = golfer.odds * (1.1 - (.1 * int(standing)))
+                golfer.current_points = (
+                    golfer.odds * (1.1 - (0.1 * int(standing)))
+                    if int(standing) <= 10
+                    else 0
+                )
                 golfer.updated_at = datetime.datetime.now()
                 db.session.add(golfer)
                 db.session.commit()

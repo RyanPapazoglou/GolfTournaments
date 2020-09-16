@@ -7,7 +7,7 @@ from app.golfers.golfers_dao import GolferDao
 class GolfersGenerator:
     @staticmethod
     def read_golfer_data():
-        golfers_df = pd.read_csv("app/golfers/PGA Championship - Golfers.csv")
+        golfers_df = pd.read_csv("app/golfers/US Open Golfer File - US Open Golfers.csv")
 
         golfers_num_rows, golfers_num_cols = golfers_df.shape
         print("Rows: ", golfers_num_rows, "\nCols: ", golfers_num_cols)

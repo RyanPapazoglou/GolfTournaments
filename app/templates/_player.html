@@ -1,13 +1,13 @@
 <div class="table-responsive">
     <table id="leaderboard" class="table table-hover">
         <tr {% if player.id == current_user.id %} style="background-color: #00ff6e" {% endif %}>
-            <td width="50px">
+            <td width="20%">
                 Standing: <strong>{{ count.index }}</strong>
             </td>
-            <td width="100px">
+            <td width="50%">
                 Team name: <strong><a href="{{ url_for('profile.profile', team_name=player.team_name) }}">{{ player.team_name }}</a></strong>
             </td>
-            <td width="100px">
+            <td width="20%">
                 Points: <strong>{{ player.points }}</strong>
             </td>
         </tr>

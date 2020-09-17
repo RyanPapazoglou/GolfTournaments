@@ -7,7 +7,7 @@ class ScraperJob:
     def scrape():
         try:
             print("Starting job to update standings")
-            url = "http://www.espn.com/golf//leaderboard"
+            url = "https://www.espn.com/golf/leaderboard"
             requests.post(
                 f"{os.getenv('SCRAPE_HOME')}/standings/update", json={"url": url},
             )

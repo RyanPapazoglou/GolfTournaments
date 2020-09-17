@@ -39,6 +39,7 @@ class ScraperDao:
                 db.session.add(golfer)
                 db.session.commit()
         except Exception as e:
+            db.session.rollback()
             print(e)
             return "Error" + str(e)
         return "Standings set"

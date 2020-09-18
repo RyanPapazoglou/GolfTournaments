@@ -44,21 +44,25 @@ class ScraperService:
         soup = BeautifulSoup(html, features="html.parser")
         tb = soup.find("tbody", class_="Table__TBODY")
         ScraperDao.reset_standings()
-        for link in tb.find_all("tr", {"class": re.compile("Table__TR*")}):
-            standing = link.find("td").getText()
-            if "T" in standing:
-                standing = standing[1:]
-            name = (
-                link.findAll("td")[1::2][0]
-                .find("a", class_="leaderboard_player_name")
-                .getText()
-                .split(" ", 1)
-            )
-            first_name = name[0]
-            last_name = name[1]
-            if "-" not in standing:
-                ScraperDao.update_standings(
-                    first_name=first_name, last_name=last_name, standing=standing
+        try:
+            for link in tb.find_all("tr", {"class": re.compile("Table__TR*")}):
+                standing = link.find("td").getText()
+                if "T" in standing:
+                    standing = standing[1:]
+                name = (
+                    link.findAll("td")[2::3][0]
+                    .find("a", class_="leaderboard_player_name")
+                    .getText()
+                    .split(" ", 1)
                 )
+                first_name = name[0]
+                last_name = name[1]
+                print(first_name + " " + last_name + " " + standing)
+                if "-" not in standing:
+                    ScraperDao.update_standings(
+                        first_name=first_name, last_name=last_name, standing=standing
+                    )
+        except Exception as e:
+            print(e)
         Profiles.calculate_points()
         return True

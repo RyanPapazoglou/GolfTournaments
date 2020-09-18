@@ -57,7 +57,6 @@ class ScraperService:
                 )
                 first_name = name[0]
                 last_name = name[1]
-                print(first_name + " " + last_name + " " + standing)
                 if "-" not in standing:
                     ScraperDao.update_standings(
                         first_name=first_name, last_name=last_name, standing=standing
